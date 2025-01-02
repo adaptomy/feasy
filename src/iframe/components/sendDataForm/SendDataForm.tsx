@@ -1,54 +1,50 @@
 import { useState } from 'react';
-import type { PostData } from './Post.type';
-import styles from './index.module.css';
+import type { PostData } from '../../../content/types/post.types';
+import { buttonStyle, containerStyle, inputStyle, spaceYstyle } from './sendDataForm.styles';
 
 export const SendDataForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [old, setOld] = useState('');
-  const toShare = () => {
+
+  const shareData = () => {
     const postData: PostData = {
       action: 'share',
-      content: {
-        name,
-        email,
-        old,
-      },
+      content: { name, email, old },
     };
-
     window.parent.postMessage(postData, '*');
   };
 
   return (
-    <div className={styles.container}>
-      <p className={styles.spaceY} />
+    <div style={containerStyle} className="iframe-container">
+      <div style={spaceYstyle} />
       <input
         title="氏名"
-        className={styles.basicInput}
+        style={inputStyle}
         placeholder="富士 太郎"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <p className={styles.spaceY} />
+      <div style={spaceYstyle} />
       <input
         title="メールアドレス"
-        className={styles.basicInput}
+        style={inputStyle}
         placeholder="mail@co.jp"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <p className={styles.spaceY} />
+      <div style={spaceYstyle} />
       <input
         title="年齢"
-        className={styles.basicInput}
+        style={inputStyle}
         placeholder="20"
-        value={old}
         type="number"
+        value={old}
         onChange={(e) => setOld(e.target.value)}
       />
-      <p className={styles.spaceY} />
+      <div style={spaceYstyle} />
       <div style={{ textAlign: 'right' }}>
-        <button onClick={toShare} className={styles.shareBtn}>
+        <button onClick={shareData} style={buttonStyle}>
           データ共有
         </button>
       </div>
